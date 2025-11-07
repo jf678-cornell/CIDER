@@ -1,6 +1,6 @@
 addAllPaths
 close all
-load new_CESM_params.mat
+load CESM_params.mat
 % param_T_all(1,:) = param_T_all(5,:)
 
 %% Load/create 
@@ -78,6 +78,9 @@ CO2levels_2035_2070_ssp245 = CO2_SSP245(6+15:86-31);
 CO2_ref = CO2_SSP245(6+14);
 CO2_forcing_SSP245 = 5.35*log((CO2levels_2035_2070_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeatElements(CO2_forcing_SSP245,12);
+years_of_all_forcing = [2005	2010	2020	2030	2040	2050	2060	2070	2080	2090	2100];
+all_forcing =          [1.871	2.137	2.622	3.017	3.470	3.922	4.395	4.897	5.421	5.983	6.561];
+CO2_forcing_SSP245_month = interp1(years_of_all_forcing,all_forcing,annualToMonthly(2035:2069))-interp1(years_of_all_forcing,all_forcing,2035);
 
 %% Load SP Data
 % AOD_0N_matrix  = ncread("u-ch622_AOD.nc","AOD550_delta");

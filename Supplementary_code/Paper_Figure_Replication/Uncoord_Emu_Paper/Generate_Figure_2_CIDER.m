@@ -79,6 +79,9 @@ CO2levels_2035_2070_ssp245 = CO2_SSP245(6+15:86-31);
 CO2_ref = CO2_SSP245(6+14);
 CO2_forcing_SSP245 = 5.35*log((CO2levels_2035_2070_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeatElements(CO2_forcing_SSP245,12);
+years_of_all_forcing = [2005	2010	2020	2030	2040	2050	2060	2070	2080	2090	2100];
+all_forcing =          [1.871	2.137	2.622	3.017	3.470	3.922	4.395	4.897	5.421	5.983	6.561];
+CO2_forcing_SSP245_month = interp1(years_of_all_forcing,all_forcing,annualToMonthly(2035:2069))-interp1(years_of_all_forcing,all_forcing,2035);
 
 %% Load SP Data
 % AOD_0N_matrix  = ncread("u-ch622_AOD.nc","AOD550_delta");
@@ -326,7 +329,7 @@ box on
 grid on
 ylabel("AOD")
 my_tile.TitleHorizontalAlignment = 'left';
-my_title = "(a)";
+my_title = "(a) AOD";
 title(my_title,"FontSize",20)
 set(gca,'FontSize', 20)
 xlim([2035 2070])
@@ -375,7 +378,7 @@ hold off
 ylabel("Temperature (°C above PI)")
 title("Figure 1")
 my_tile.TitleHorizontalAlignment = 'left';
-my_title = "(b)";
+my_title = "(b) Temperature";
 box on 
 grid on
 title(my_title,"FontSize",20)
@@ -422,9 +425,9 @@ for i = 1:8
 end
 hold off
 % legend(sp_legend)
-ylabel("Precip. change (mm/day)")
+ylabel("Precip. change (mm day^{-1})")
 my_tile.TitleHorizontalAlignment = 'left';
-my_title = "(c)";
+my_title = "(c) Precipitation";
 box on 
 grid on
 title(my_title,"FontSize",20)
@@ -523,7 +526,7 @@ plot(ann_time, averageEvery2d(12,1,P_emu_fdbk_60NS+P_base-P_base_2030),"LineWidt
 hold off
 % legend("SSP2-4.5","0°N Feedback for 1.0°C","15°N+15°S Feedback for 1.0°C","30°N+30°S Feedback for 1.0°C","60°N+60°S Feedback for 1.0°C","Location",'se')
 % xlabel("Year")
-ylabel("Precip. Change (mm/day)")
+ylabel("Precip. Change (mm day^{-1})")
 box on 
 grid on
 my_tile.TitleHorizontalAlignment = 'left';
@@ -597,7 +600,7 @@ P_emu_lower_1 = globalMean(CIDER_pattern_from_all_injections_and_CO2([injection_
 plot(ann_time, averageEvery2d(12,1,P_emu_arise+P_base-P_base_2030),"LineWidth",2,"Color",colors3(1,:),"LineStyle","--")
 plot(ann_time, averageEvery2d(12,1,P_emu_lower_5+P_base-P_base_2030),"LineWidth",2,"Color",colors3(2,:),"LineStyle","--")
 plot(ann_time, averageEvery2d(12,1,P_emu_lower_1+P_base-P_base_2030),"LineWidth",2,"Color",colors3(3,:),"LineStyle","--")
-ylabel("Precip. Change (mm/day)")
+ylabel("Precip. Change (mm day^{-1})")
 xlim([2035 2070])
 
 hold off
@@ -609,7 +612,7 @@ title(my_title,"FontSize",20)
 set(gca,'FontSize', 20)
 
 set(gcf,'renderer','painters')
-print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_1_" + getNow() + ".png"],'-r300')
+print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_2_" + getNow() + ".png"],'-r300')
 
 %% Get Data
 T_emu_ssp_ann = averageEvery2d(12,1,T_emu_SSP245+T_base);

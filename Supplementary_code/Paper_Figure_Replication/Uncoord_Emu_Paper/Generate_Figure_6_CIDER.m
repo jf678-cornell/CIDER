@@ -76,6 +76,9 @@ CO2levels_2035_2070_ssp245 = CO2_SSP245(6+15:86-31);
 CO2_ref = CO2_SSP245(6+14);
 CO2_forcing_SSP245 = 5.35*log((CO2levels_2035_2070_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeatElements(CO2_forcing_SSP245,12);
+years_of_all_forcing = [2005	2010	2020	2030	2040	2050	2060	2070	2080	2090	2100];
+all_forcing =          [1.871	2.137	2.622	3.017	3.470	3.922	4.395	4.897	5.421	5.983	6.561];
+CO2_forcing_SSP245_month = interp1(years_of_all_forcing,all_forcing,annualToMonthly(2035:2069))-interp1(years_of_all_forcing,all_forcing,2035);
 
 %% Load SP Data
 % AOD_0N_matrix  = ncread("u-ch622_AOD.nc","AOD550_delta");
@@ -358,13 +361,14 @@ plot(ann_time, mean(averageEvery2d(12,1,T_emu_SSP245+T_base)+ens_variability_1,2
 plot(ann_time, mean(averageEvery2d(12,1,T_30NS_fdbk+T_base),2)-PIT,"LineWidth",4,"Color",colors(9,:))
 plot(ann_time, mean(averageEvery2d(12,1,T_emu_fdbk_30NS+T_base)+ens_variability_4,2)-PIT,"LineWidth",4,"Color",colors(2,:),"LineStyle","-")
 hold off
-legend("SSP2-4.5, CESM2","SSP2-4.5, CIDER","30°N+30°S Feedback for 1.0°C, CESM2","30°N+30°S Feedback for 1.0°C, CIDER","Location",'nw')
+legend("SSP2-4.5, CESM2-WACCM6","SSP2-4.5, CIDER","30°N+30°S Feedback for 1.0°C, CESM2-WACCM6","30°N+30°S Feedback for 1.0°C, CIDER","Location",'nw')
 xlabel("Year")
 ylabel("Temperature (°C above PI)")
 box on 
 grid on
+set(gca,'FontSize', 20)
 
-print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_5_" + getNow() + ".png"],'-r300')
+print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_6_" + getNow() + ".png"],'-r300')
 
 % %% Plot GAUSS T
 % my_tile = nexttile(8);

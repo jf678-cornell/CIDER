@@ -45,6 +45,10 @@ CO2_ref = CO2levels_2035_2070_ssp245(1);
 CO2_ref = CO2_SSP245(6+14);
 CO2_forcing_SSP245 = 5.35*log((CO2levels_2035_2070_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeatElements(CO2_forcing_SSP245,12);
+years_of_all_forcing = [2005	2010	2020	2030	2040	2050	2060	2070	2080	2090	2100];
+all_forcing =          [1.871	2.137	2.622	3.017	3.470	3.922	4.395	4.897	5.421	5.983	6.561];
+CO2_forcing_SSP245_month = interp1(years_of_all_forcing,all_forcing,annualToMonthly(2035:2069))-interp1(years_of_all_forcing,all_forcing,2035);
+
 %%
 L_DEFAULT = readLog('GAUSS-DEFAULT',[1 2 3]);
 injection_default = [mean(L_DEFAULT.S30,2) mean(L_DEFAULT.S15,2) mean(L_DEFAULT.N15,2) mean(L_DEFAULT.N30,2)];
@@ -662,7 +666,7 @@ hold on
 % contourm(lat,[lon;360],abs(double(difference_from_MO_ste_P')),[1.99 2.01],'Color',[.5 0 1], 'LineWidth', 1);
 hold off
 set(gcf,'renderer','painters')
-print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_2_ann_" + getNow() + ".png"],'-r300')
+print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_3_" + getNow() + ".png"],'-r300')
 
 
 function pattern = pattern_scale(mean_temperatures,all_T_patterns_scaled,T_base_pattern)

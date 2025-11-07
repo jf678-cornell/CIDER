@@ -3,6 +3,7 @@ clear all
 addAllPaths
 
 AOD_weightings = [1 25];
+AOD_weightings = [1 15];
 reweight = 420;
 
 %% Load/create 
@@ -48,6 +49,9 @@ CO2levels_2035_2070_ssp245 = CO2_SSP245(6+15:86-31);
 CO2_ref = CO2_SSP245(6+14);
 CO2_forcing_SSP245 = 5.35*log((CO2levels_2035_2070_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeatElements(CO2_forcing_SSP245,12);
+years_of_all_forcing = [2005	2010	2020	2030	2040	2050	2060	2070	2080	2090	2100];
+all_forcing =          [1.871	2.137	2.622	3.017	3.470	3.922	4.395	4.897	5.421	5.983	6.561];
+CO2_forcing_SSP245_month = interp1(years_of_all_forcing,all_forcing,annualToMonthly(2035:2069))-interp1(years_of_all_forcing,all_forcing,2035);
 
 %% Load SP Data
 % AOD_0N_matrix  = ncread("u-ch622_AOD.nc","AOD550_delta");
@@ -317,7 +321,7 @@ Q_base = globalMean(pattern_Q_base);
 RH_base = globalMean(pattern_RH_base);
 U10_base = globalMean(pattern_U10_base);
 AOD_base = globalMean(pattern_AOD_base);
-save("Uncoord_Emu_Paper/new_CESM_params.mat","param_AOD_all","param_P_all","param_T_all","param_Q_all","param_RH_all","param_U10_all","pattern_P_all","pattern_T_all","pattern_Q_all","pattern_RH_all","pattern_U10_all","pattern_AOD_all","pattern_AOD_base","pattern_T_base","pattern_P_base","pattern_Q_base","pattern_U10_base","pattern_RH_base");
+save("Uncoord_Emu_Paper/CESM_params.mat","param_AOD_all","param_P_all","param_T_all","param_Q_all","param_RH_all","param_U10_all","pattern_P_all","pattern_T_all","pattern_Q_all","pattern_RH_all","pattern_U10_all","pattern_AOD_all","pattern_AOD_base","pattern_T_base","pattern_P_base","pattern_Q_base","pattern_U10_base","pattern_RH_base");
 clc
 disp("Done training!")
 %%

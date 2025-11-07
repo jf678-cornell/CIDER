@@ -56,6 +56,9 @@ CO2_ref = CO2levels_2035_2070_ssp245(1);
 CO2_ref = CO2_SSP245(6+14);
 CO2_forcing_SSP245 = 5.35*log((CO2levels_2035_2075_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeatElements(CO2_forcing_SSP245,12);
+years_of_all_forcing = [2005	2010	2020	2030	2040	2050	2060	2070	2080	2090	2100];
+all_forcing =          [1.871	2.137	2.622	3.017	3.470	3.922	4.395	4.897	5.421	5.983	6.561];
+CO2_forcing_SSP245_month = interp1(years_of_all_forcing,all_forcing,annualToMonthly(2035:2075))-interp1(years_of_all_forcing,all_forcing,2035);
 
 %%
 % uncoord_AOD_data_1 = processRun('AODVISstdn',1,'GAUSS-UNCOORD','203501-203612.nc',[2035 2035],[1],p);
@@ -327,7 +330,7 @@ title('(e)')
 box on
 grid on
 xlabel("Year")
-ylabel("N-S Temperature Gradient (°C/°lat)")
+ylabel("N-S Temperature Gradient (°C)")
 xlim([2035 2075])
 % legend("CESM2 Ensemble Mean","CIDER","CESM2 Ensemble Members","Location","se")
 
@@ -352,12 +355,12 @@ title('(f)')
 box on
 grid on
 xlabel("Year")
-ylabel("Precipitation (mm/day)")
+ylabel("Precipitation (mm day^{-1})")
 % legend("CESM2 Ensemble Mean","CIDER","CESM2 Ensemble Members","Location","se")
 xlim([2035 2075])
 my_tile.TitleHorizontalAlignment = 'left';
 
 set(gca,"FontSize",20)
 set(gcf,'renderer','painters')
-print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_UNCOORD_2_" + getNow() + ".png"],'-r300')
+print(gcf,'-dpng',["Uncoord_Emu_Paper/Uncoord_Plots/Figure_5_" + getNow() + ".png"],'-r300')
 
