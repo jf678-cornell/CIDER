@@ -17,3 +17,9 @@ CO2levels_2035_2069_ssp245 = CO2_conc_SSP245[6+14:55].reshape(-1, 1);
 CO2_ref = CO2_conc_SSP245[5+14];
 CO2_forcing_SSP245 = 5.35*np.log((CO2levels_2035_2100_ssp245)/CO2_ref);
 CO2_forcing_SSP245_month = repeat_elements(CO2_forcing_SSP245,12);
+
+# Use all anthropogenic forcing instead of just CO2 (updated parameters)
+Riahi_forcing_file = scipy.io.loadmat('CO2_concentrations.mat')
+years_of_all_forcing = np.array(Riahi_forcing_file['years_of_all_forcing'])
+all_forcing = np.array(Riahi_forcing_file['all_forcing'])
+CO2_forcing_SSP245_month = np.interp(np.arange(2035, 22100), years_of_all_forcing, all_forcing)- np.interp(2035, years_of_all_forcing, all_forcing)
