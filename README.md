@@ -1,2 +1,3 @@
 # CIDER
  The Climate Intervention Dynamical EmulatoR is a lightweight, reduced-order model that allows for exploration of highly dynamic geoengineering scenarios, including uncoordinated deployment and termination. The emulator in CIDER_code is written in Python, and another MATLAB version is included along with the figure replication code in Supplementary_code. Paper describing the model can be found at https://doi.org/10.5194/gmd-19-1809-2026.
+Cite as: Farley, J., MacMartin, D. G., Visioni, D., Kravitz, B., Bednarz, E. M., Duffey, A., Henry, M., and Akherati, A.: A Climate Intervention Dynamical Emulator (CIDER) for scenario space exploration, Geosci. Model Dev., 19, 1809–1831, https://doi.org/10.5194/gmd-19-1809-2026, 2026.
